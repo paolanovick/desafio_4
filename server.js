@@ -37,10 +37,12 @@ app.get("/peliculas", (req, res) => {
   const pelicula = req.query.nombre;
 
   // Verificar si la película está en el array de favoritos
-  if (peliculasFavoritas.includes(pelicula)) {
+  if (pelicula && peliculasFavoritas.includes(pelicula)) {
     res.send("La película seleccionada ya está en favoritos.");
-  } else {
+  } else if (pelicula) {
     res.status(404).send("404 – película no encontrada.");
+  } else {
+    res.status(400).send("Parámetro de película no proporcionado.");
   }
 });
 
